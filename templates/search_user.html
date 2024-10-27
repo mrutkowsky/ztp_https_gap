@@ -1,0 +1,42 @@
+<!-- templates/search_user.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Search User</title>
+</head>
+<body>
+    <h1>Search for a User</h1>
+    
+    <!-- Displaying flash messages -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        <ul>
+          {% for category, message in messages %}
+            <li style="color: {% if category == 'success' %}green{% else %}red{% endif %};">
+              {{ message }}
+            </li>
+          {% endfor %}
+        </ul>
+      {% endif %}
+    {% endwith %}
+
+    <form action="{{ url_for('search_user') }}" method="post">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required><br><br>
+        
+        <button type="submit">Search User</button>
+    </form>
+
+    <!-- Displaying the search result if available -->
+    {% if result %}
+      <h2>Search Results:</h2>
+      <ul>
+        {% for user in result %}
+          <li>User ID: {{ user[0] }}, Username: {{ user[1] }}, Role: {{ user[3] }}</li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+</body>
+</html>
