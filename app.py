@@ -46,7 +46,7 @@ def search_user():
         username = request.form.get('username')
         
         # SQL injection point - podatne zapytanie
-        query = f"SELECT * FROM users WHERE username = '{username}'"
+        query = f"SELECT username, role FROM users WHERE username = '{username}'"
         
         conn = sqlite3.connect(DATABASE)
         cursor = conn.cursor()
@@ -153,4 +153,4 @@ def admin_dashboard():
 
 if __name__ == '__main__':
     initialize_database()
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
